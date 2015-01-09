@@ -1,22 +1,27 @@
-package calculator
+package calculator_test
 
-import "testing"
+import (
+	. "calculator"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+)
 
 var numberset = []struct {
-  x      int
-  y      int
-  result int
+	x      int
+	y      int
+	result int
 }{
-  {1, 2, 3},
-  {2, 2, 4},
-  {3, 3, 6},
+	{1, 2, 3},
+	{2, 2, 4},
+	{3, 3, 6},
 }
 
-func TestAdd(t *testing.T) {
-  for _, set := range numberset {
-    aresult := Add(set.x, set.y)
-    if aresult != set.result {
-      t.Errorf("Expected %d + %d == %d, got %d instead.", set.x, set.y, set.result, aresult)
-    }
-  }
-}
+var _ = Describe("Calculator", func() {
+	Describe("Add", func() {
+		It("Adds two numbers together", func() {
+			for _, set := range numberset {
+				Expect(Add(set.x, set.y)).To(Equal(set.result))
+			}
+		})
+	})
+})
